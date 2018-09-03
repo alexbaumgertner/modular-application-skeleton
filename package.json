@@ -1,0 +1,23 @@
+{
+  "name": "@npm/modular-application-skeleton",
+  "version": "1.0.0",
+  "description": "Concept of a modular single page application",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbaumgertner/modular-application-skeleton.git"
+  },
+  "keywords": [
+    "spa",
+    "modular"
+  ],
+  "author": "alex.baumgertner@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexbaumgertner/modular-application-skeleton/issues"
+  },
+  "homepage": "https://github.com/alexbaumgertner/modular-application-skeleton#readme"
+}
