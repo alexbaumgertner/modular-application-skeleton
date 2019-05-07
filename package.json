@@ -36,6 +36,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^7.0.3",
