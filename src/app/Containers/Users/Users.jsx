@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import UsersList, { usersListPropTypes } from '../../Components/UsersList'
 
 class Users extends Component {
   render() {
-    return (
-      <div className="users">
-        <div className="users__title">Users</div>
-        <div className="users__list">
+    const { users, add_user, delete_user } = this.props
 
+    return (
+      <div className='users'>
+        <div className='users__title'>Users</div>
+        <div className='users__list'>
+          <UsersList
+            users={users}
+            addUser={add_user}
+            deleteUser={delete_user}
+          />
         </div>
       </div>
     )
   }
 }
 
-Users.propTypes = {
-  users: PropTypes.array,
-}
+Users.propTypes = usersListPropTypes
 
 /**
  * @see https://react-redux.js.org/api/connect#mapstatetoprops-state-ownprops-object
@@ -32,4 +36,9 @@ const mapDispatchToProps = dispatch => ({
   delete_user: user => dispatch({ type: 'DELETE_USER', payload: user.id }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Users)
+
+export { UsersConnected as default }

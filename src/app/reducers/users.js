@@ -2,7 +2,7 @@ const initState = [
   {
     id: 1,
     name: 'admin',
-  }
+  },
 ]
 
 const users = (previousState = initState, action) => {
