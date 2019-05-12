@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Menu } from 'semantic-ui-react'
 
 import configureStore from './app/store/configureStore'
 import {
@@ -24,28 +25,14 @@ class App extends Component {
         <Router>
           <div className="App">
             <header className="App__header">Proof of concept</header>
-            <menu className="menu">
-              <ul className="menu-list">
-                <li className="menu-list__item">
-                  <Link to="/">Main</Link>
-                </li>
-                <li className="menu-list__item">
-                  <Link to="/catalog">Catalog</Link>
-                </li>
-                <li className="menu-list__item">
-                  <Link to="/contacts">Contacts</Link>
-                </li>
-                <li className="menu-list__item">
-                  <Link to="/favorites">Favorites</Link>
-                </li>
-                <li className="menu-list__item">
-                  <Link to="/profile">Profile</Link>
-                </li>
-                <li className="menu-list__item">
-                  <Link to="/admin">Admin</Link>
-                </li>
-              </ul>
-            </menu>
+            <Menu>
+              <Menu.Item><Link to="/">Main</Link></Menu.Item>
+              <Menu.Item><Link to="/catalog">Catalog</Link></Menu.Item>
+              <Menu.Item><Link to="/contacts">Contacts</Link></Menu.Item>
+              <Menu.Item><Link to="/favorites">Favorites</Link></Menu.Item>
+              <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
+              <Menu.Item><Link to="/admin">Admin</Link></Menu.Item>
+            </Menu>
             <main>
               <Route exact path="/" component={Main} />
               <Route path="/admin" component={Admin} />
