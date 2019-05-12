@@ -47,7 +47,7 @@ class App extends Component {
               </ul>
             </menu>
             <main>
-              <Route path="/" component={Main} />
+              <Route exact path="/" component={Main} />
               <Route path="/admin" component={Admin} />
               <Route path="/catalog" component={Catalog} />
               <Route path="/contacts" component={Contacts} />
