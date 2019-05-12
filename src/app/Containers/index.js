@@ -1,4 +1,8 @@
 // all Containers reexports
-import Users from './Users'
+import Users, { UsersRedux } from './Users'
 
-export { Users }
+const Reducers = {
+  UsersRedux,
+}
+
+export { Reducers, Users }

@@ -1,2 +1,4 @@
 import Users from './Users'
-export default Users
+import UsersRedux from './Users.redux'
+
+export { Users as default, UsersRedux }

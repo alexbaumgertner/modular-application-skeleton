@@ -6,8 +6,8 @@ import userItemPropTypes from './UserItem.propTypes'
  */
 const UserItem = props => {
   return (
-    <li className='user-item'>
-      <div className='user-item__name'>{props.user.name}</div>
+    <li className="user-item">
+      <div className="user-item__name">{props.user.name}</div>
     </li>
   )
 }

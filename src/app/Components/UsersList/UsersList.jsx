@@ -4,7 +4,7 @@ import usersListPropTypes from './UsersList.propTypes'
 
 const UsersList = props => {
   return (
-    <ul className='user-list'>
+    <ul className="user-list">
       {props.users.map(user => (
         <UserItem key={user.id} user={user} />
       ))}

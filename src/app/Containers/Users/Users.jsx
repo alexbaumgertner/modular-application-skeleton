@@ -7,9 +7,9 @@ class Users extends Component {
     const { users, add_user, delete_user } = this.props
 
     return (
-      <div className='users'>
-        <div className='users__title'>Users</div>
-        <div className='users__list'>
+      <div className="users">
+        <div className="users__title">Users</div>
+        <div className="users__list">
           <UsersList
             users={users}
             addUser={add_user}
