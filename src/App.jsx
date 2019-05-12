@@ -24,15 +24,16 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <header className="App__header">Proof of concept</header>
-            <Menu>
-              <Menu.Item><Link to="/">Main</Link></Menu.Item>
-              <Menu.Item><Link to="/catalog">Catalog</Link></Menu.Item>
-              <Menu.Item><Link to="/contacts">Contacts</Link></Menu.Item>
-              <Menu.Item><Link to="/favorites">Favorites</Link></Menu.Item>
-              <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
-              <Menu.Item><Link to="/admin">Admin</Link></Menu.Item>
-            </Menu>
+            <header className="App__header">
+              <Menu className="App__menu">
+                <Menu.Item><Link to="/">Main</Link></Menu.Item>
+                <Menu.Item><Link to="/catalog">Catalog</Link></Menu.Item>
+                <Menu.Item><Link to="/contacts">Contacts</Link></Menu.Item>
+                <Menu.Item><Link to="/favorites">Favorites</Link></Menu.Item>
+                <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
+                <Menu.Item><Link to="/admin">Admin</Link></Menu.Item>
+              </Menu>
+            </header>
             <main>
               <Route exact path="/" component={Main} />
               <Route path="/admin" component={Admin} />
