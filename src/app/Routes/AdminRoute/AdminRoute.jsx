@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Admin = () => {
+const AdminRoute = () => {
   return <div className="admin-route">Admin Route</div>
 }
 
-export default Admin
+export default AdminRoute

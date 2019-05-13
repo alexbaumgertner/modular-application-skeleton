@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Catalog = () => {
+const CatalogRoute = () => {
   return <div className="catalog-route">Catalog Route</div>
 }
 
-export default Catalog
+export default CatalogRoute

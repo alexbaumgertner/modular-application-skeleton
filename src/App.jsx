@@ -5,12 +5,12 @@ import { Menu } from 'semantic-ui-react'
 
 import configureStore from './app/store/configureStore'
 import {
-  Admin,
-  Catalog,
-  Contacts,
-  Profile,
-  Main,
-  Favorites,
+  AdminRoute,
+  CatalogRoute,
+  ContactsRoute,
+  ProfileRoute,
+  MainRoute,
+  FavoritesRoute,
 } from './app/Routes'
 
 const store = configureStore()
@@ -35,12 +35,12 @@ class App extends Component {
               </Menu>
             </header>
             <main>
-              <Route exact path="/" component={Main} />
-              <Route path="/admin" component={Admin} />
-              <Route path="/catalog" component={Catalog} />
-              <Route path="/contacts" component={Contacts} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/favorites" component={Favorites} />
+              <Route exact path="/" component={MainRoute} />
+              <Route path="/admin" component={AdminRoute} />
+              <Route path="/catalog" component={CatalogRoute} />
+              <Route path="/contacts" component={ContactsRoute} />
+              <Route path="/profile" component={ProfileRoute} />
+              <Route path="/favorites" component={FavoritesRoute} />
             </main>
           </div>
         </Router>

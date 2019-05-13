@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Main = () => {
+const MainRoute = () => {
   return <div className="main">Main</div>
 }
 
-export default Main
+export default MainRoute

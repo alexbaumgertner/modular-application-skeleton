@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Favorites = () => {
+const FavoritesRoute = () => {
   return <div className="favorites-route">Favorites</div>
 }
 
-export default Favorites
+export default FavoritesRoute

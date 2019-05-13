@@ -1,9 +1,9 @@
 // all Routes reexports
-import Admin from './Admin'
-import Catalog from './Catalog'
-import Contacts from './Contacts'
-import Favorites from './Favorites'
-import Main from './Main'
-import Profile from './Profile'
+import AdminRoute from './AdminRoute'
+import CatalogRoute from './CatalogRoute'
+import ContactsRoute from './ContactsRoute'
+import FavoritesRoute from './FavoritesRoute'
+import MainRoute from './MainRoute'
+import ProfileRoute from './ProfileRoute'
 
-export { Admin, Catalog, Contacts, Favorites, Main, Profile }
+export { AdminRoute, CatalogRoute, ContactsRoute, FavoritesRoute, MainRoute, ProfileRoute }

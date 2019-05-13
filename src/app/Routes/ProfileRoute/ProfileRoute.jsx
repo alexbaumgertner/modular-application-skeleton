@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Profile = () => {
+const ProfileRoute = () => {
   return <div className="profile">Profile</div>
 }
 
-export default Profile
+export default ProfileRoute
