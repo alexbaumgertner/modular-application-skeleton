@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
 
 class CatalogList extends Component {
 
@@ -14,7 +16,7 @@ class CatalogList extends Component {
           {catalogItem.price}
         </Table.Cell>
         <Table.Cell>
-          {catalogItem.date}
+          {format(parse(catalogItem.date), 'MM/DD/YYYY')}
         </Table.Cell>
         <Table.Cell>
           {catalogItem.productAdjective}
