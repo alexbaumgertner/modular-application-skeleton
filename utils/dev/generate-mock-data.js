@@ -18,6 +18,8 @@ const generateUUID = () => faker.fake('{{random.uuid}}')
 const generateCatalogItem = () => {
   return {
     id: generateUUID(),
+    image: faker.fake('{{image.image}}'),
+    text: faker.fake('{{lorem.paragraphs}}'),
     name: faker.fake('{{commerce.productName}}'),
     price: faker.fake('{{commerce.price}}'),
     productAdjective: faker.fake('{{commerce.productAdjective}}'),

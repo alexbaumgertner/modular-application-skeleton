@@ -5,6 +5,7 @@ import { Header, Icon } from 'semantic-ui-react'
 import {
   CatalogContainer,
   CatalogItemContainer,
+  CatalogItemEditContainer,
 } from '../../Containers'
 
 const CatalogRoute = () => {
@@ -16,6 +17,7 @@ const CatalogRoute = () => {
       </Header>
       <Route exact path="/catalog" component={CatalogContainer} />
       <Route exact path="/catalog/:id" component={CatalogItemContainer} />
+      <Route exact path="/catalog/:id/edit" component={CatalogItemEditContainer} />
     </div>
   )
 }

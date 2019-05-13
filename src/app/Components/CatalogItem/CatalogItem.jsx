@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'semantic-ui-react'
+import { Item } from 'semantic-ui-react'
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
+
+import './CatalogItem.css'
 
 class CatalogItem extends Component {
   render() {
     const {
       name,
+      image,
+      text,
       price,
       productAdjective,
       department,
@@ -13,19 +19,23 @@ class CatalogItem extends Component {
     } = this.props.item
 
     return (
-      <Card className="catalog-item">
-        <Card.Meta className="catalog-item__date">
-          {date}
-        </Card.Meta>
-        <Card.Content>
-          <div className="catalog-item__name">{name}</div>
-          <div className="catalog-item__price">{price}</div>
-          <div className="catalog-item__productAdjective">{productAdjective}</div>
-        </Card.Content>
-        <Card.Content extra>
-          <div className="catalog-item__department">{department}</div>
-        </Card.Content>
-      </Card>
+      <Item.Group className="catalog-item-group">
+        <Item className="catalog-item">
+          <Item className="catalog-item__image" image={image} />
+          <Item.Content className="catalog-item__content">
+            <Item.Header className="catalog-item__name">name: {name}</Item.Header>
+            <Item.Description>{text}</Item.Description>
+            <Item.Meta>
+              <div className="catalog-item__date">
+                date: {format(parse(date), 'MM/DD/YYYY')}
+              </div>
+              <div className="catalog-item__price">price: {price}</div>
+              <div className="catalog-item__productAdjective">productAdjective: {productAdjective}</div>
+              <div className="catalog-item__department">department: {department}</div>
+            </Item.Meta>
+          </Item.Content>
+        </Item>
+      </Item.Group>
     )
   }
 }

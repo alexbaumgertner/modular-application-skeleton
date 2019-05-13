@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
+import { CatalogItemEdit } from '../../Components'
 
-import { CatalogItem } from '../../Components'
-
-class CatalogItemContainer extends Component {
+class CatalogItemEditContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +26,17 @@ class CatalogItemContainer extends Component {
   }
 
 
+  onSubmit(values) {
+    console.log("values: ", values); // eslint-disable-line
+  }
+
   render() {
     return (
-      <div className="catalog-item-container">
-        {this.state.item && <CatalogItem item={this.state.item} />}
+      <div className="catalog-item-edit-container">
+        {this.state.item && <CatalogItemEdit item={this.state.item} onSubmit={this.onSubmit} />}
       </div>
     )
   }
 }
 
-export default CatalogItemContainer
+export default CatalogItemEditContainer
