@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Card } from 'semantic-ui-react'
 
 class CatalogItem extends Component {
   render() {
@@ -12,13 +13,19 @@ class CatalogItem extends Component {
     } = this.props.item
 
     return (
-      <div className="catalog-item">
-        <div className="catalog-item__date">{date}</div>
-        <div className="catalog-item__name">{name}</div>
-        <div className="catalog-item__price">{price}</div>
-        <div className="catalog-item__productAdjective">{productAdjective}</div>
-        <div className="catalog-item__department">{department}</div>
-      </div>
+      <Card className="catalog-item">
+        <Card.Meta className="catalog-item__date">
+          {date}
+        </Card.Meta>
+        <Card.Content>
+          <div className="catalog-item__name">{name}</div>
+          <div className="catalog-item__price">{price}</div>
+          <div className="catalog-item__productAdjective">{productAdjective}</div>
+        </Card.Content>
+        <Card.Content extra>
+          <div className="catalog-item__department">{department}</div>
+        </Card.Content>
+      </Card>
     )
   }
 }
