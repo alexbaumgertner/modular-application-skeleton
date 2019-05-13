@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { CatalogList } from '../../Components'
 
-class Catalog extends Component {
+class CatalogContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,15 +26,15 @@ class Catalog extends Component {
     } = this.state
 
     return (
-      <div className="catalog">
+      <div className="catalog-container">
         <CatalogList catalog={catalog} />
       </div>
     )
   }
 }
 
-Catalog.propTypes = {
+CatalogContainer.propTypes = {
   catalog: PropTypes.array,
 }
 
-export default Catalog
+export default CatalogContainer

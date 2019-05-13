@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Table } from 'semantic-ui-react'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
@@ -10,7 +11,9 @@ class CatalogList extends Component {
     return (
       <Table.Row key={catalogItem.id}>
         <Table.Cell>
-          {catalogItem.name}
+          <Link to={`/catalog/${catalogItem.id}`}>
+            {catalogItem.name}
+          </Link>
         </Table.Cell>
         <Table.Cell>
           {catalogItem.price}

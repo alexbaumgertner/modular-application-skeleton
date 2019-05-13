@@ -1,8 +1,10 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import { Header, Icon } from 'semantic-ui-react'
 
 import {
-  Catalog,
+  CatalogContainer,
+  CatalogItemContainer,
 } from '../../Containers'
 
 const CatalogRoute = () => {
@@ -12,7 +14,8 @@ const CatalogRoute = () => {
         <Icon name='list layout' circular />
         <Header.Content>Catalog Route</Header.Content>
       </Header>
-      <Catalog />
+      <Route exact path="/catalog" component={CatalogContainer} />
+      <Route exact path="/catalog/:id" component={CatalogItemContainer} />
     </div>
   )
 }

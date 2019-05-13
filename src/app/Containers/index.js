@@ -1,9 +1,5 @@
 // all Containers reexports
-import Users, { UsersRedux } from './Users'
-import Catalog from './Catalog'
+import CatalogContainer from './CatalogContainer'
+import CatalogItemContainer from './CatalogItemContainer'
 
-const Reducers = {
-  UsersRedux,
-}
-
-export { Reducers, Users, Catalog }
+export { CatalogContainer, CatalogItemContainer }
