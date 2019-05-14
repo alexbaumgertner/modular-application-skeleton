@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { CatalogList } from '../../Components'
+import './CatalogContainer.css'
 
 class CatalogContainer extends Component {
   constructor(props) {
@@ -28,8 +29,19 @@ class CatalogContainer extends Component {
       body: JSON.stringify(values), // body data type must match "Content-Type" header
     })
       .then(result => result.json())
-      .then(item => console.log("item: ", item))
+      .then(item => console.log('item: ', item))
       .catch(error => this.setState({ error }))
+  }
+
+  renderFirstItem(item) {
+    return (
+      <div className="catalog-container__first">
+        <p>name: {item.name}</p>
+        <p>price: {item.price}</p>
+        <p>productAdjective: {item.productAdjective}</p>
+        <p>department: {item.department}</p>
+      </div>
+    )
   }
 
   render() {
@@ -37,12 +49,17 @@ class CatalogContainer extends Component {
       catalog,
     } = this.state
 
+    const firstItem = catalog[0]
+
     return (
       <div className="catalog-container">
-        <CatalogList
-          catalog={catalog}
-          onSave={this.onSave}
-        />
+        {firstItem && this.renderFirstItem(firstItem)}
+        <div className="catalog-container__list">
+          <CatalogList
+            catalog={catalog}
+            onSave={this.onSave}
+          />
+        </div>
       </div>
     )
   }
