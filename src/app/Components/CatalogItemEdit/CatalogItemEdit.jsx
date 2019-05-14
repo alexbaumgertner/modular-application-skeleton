@@ -95,7 +95,7 @@ class CatalogItemEdit extends Component {
             </div>
 
             <Button type="submit" positive disabled={isSubmitting}>
-              Submit
+              Save
             </Button>
           </Form>
         )}
@@ -106,6 +106,7 @@ class CatalogItemEdit extends Component {
 
 CatalogItemEdit.propTypes = {
   item: PropTypes.object,
+  onSubmit: PropTypes.func,
 }
 
 export default CatalogItemEdit
