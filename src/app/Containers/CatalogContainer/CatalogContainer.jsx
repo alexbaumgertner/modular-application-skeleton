@@ -19,6 +19,18 @@ class CatalogContainer extends Component {
       .catch(error => this.setState({ error }))
   }
 
+  onSave = (values) => {
+    fetch(`http://localhost:3333/catalog/${values.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values), // body data type must match "Content-Type" header
+    })
+      .then(result => result.json())
+      .then(item => console.log("item: ", item))
+      .catch(error => this.setState({ error }))
+  }
 
   render() {
     const {
@@ -27,7 +39,10 @@ class CatalogContainer extends Component {
 
     return (
       <div className="catalog-container">
-        <CatalogList catalog={catalog} />
+        <CatalogList
+          catalog={catalog}
+          onSave={this.onSave}
+        />
       </div>
     )
   }

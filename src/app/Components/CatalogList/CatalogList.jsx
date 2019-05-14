@@ -1,33 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { Table } from 'semantic-ui-react'
-import parse from 'date-fns/parse'
-import format from 'date-fns/format'
+
+import CatalogListRow from '../CatalogListRow'
 
 class CatalogList extends Component {
 
-  renderItem(catalogItem) {
+  renderItem = (catalogItem) => {
     return (
-      <Table.Row key={catalogItem.id}>
-        <Table.Cell>
-          <Link to={`/catalog/${catalogItem.id}`}>
-            {catalogItem.name}
-          </Link>
-        </Table.Cell>
-        <Table.Cell>
-          {catalogItem.price}
-        </Table.Cell>
-        <Table.Cell>
-          {format(parse(catalogItem.date), 'MM/DD/YYYY')}
-        </Table.Cell>
-        <Table.Cell>
-          {catalogItem.productAdjective}
-        </Table.Cell>
-        <Table.Cell>
-          {catalogItem.department}
-        </Table.Cell>
-      </Table.Row>
+      <CatalogListRow
+        key={catalogItem.id}
+        item={catalogItem}
+        onSave={this.props.onSave}
+      />
     )
   }
 
@@ -46,6 +31,7 @@ class CatalogList extends Component {
               <Table.HeaderCell>date</Table.HeaderCell>
               <Table.HeaderCell>productAdjective</Table.HeaderCell>
               <Table.HeaderCell>department</Table.HeaderCell>
+              <Table.HeaderCell>controls</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -59,6 +45,7 @@ class CatalogList extends Component {
 
 CatalogList.propTypes = {
   catalog: PropTypes.array,
+  onSave: PropTypes.func,
 }
 
 export default CatalogList
