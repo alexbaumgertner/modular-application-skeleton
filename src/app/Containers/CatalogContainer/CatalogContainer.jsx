@@ -29,7 +29,10 @@ class CatalogContainer extends Component {
       body: JSON.stringify(values), // body data type must match "Content-Type" header
     })
       .then(result => result.json())
-      .then(item => console.log('item: ', item))
+      .then(item => {
+        // Update State here
+
+      })
       .catch(error => this.setState({ error }))
   }
 
