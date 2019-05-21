@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import { CatalogItemEdit } from '../../Components'
+import { actions } from '../CatalogContainer/CatalogContainer.redux'
 
 class CatalogItemEditContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: null,
-      item: null,
-    }
-  }
-
   componentDidMount() {
     const {
       match: {
@@ -21,48 +15,23 @@ class CatalogItemEditContainer extends Component {
       },
     } = this.props
 
-    fetch(`http://localhost:3333/catalog/${itemId}`)
-      .then(result => result.json())
-      .then(item => this.setState({ item }))
-      .catch(error => this.setState({ error }))
+    this.props.getCatalogItem(itemId)
   }
 
-
   onSubmit = (values) =>  {
-    console.log('values: ', values) // eslint-disable-line
-
-    console.log("this.props: ", this.props); // eslint-disable-line
-
     const {
       history,
-      match: {
-        params: {
-          id: itemId,
-        },
-      },
     } = this.props
 
-    fetch(`http://localhost:3333/catalog/${itemId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values), // body data type must match "Content-Type" header
-    })
-      .then(result => result.json())
-      .then(data => {
-        console.log("data: ", data); // eslint-disable-line
-        history.push('/catalog')
-
-        // this.setState() update state by values
-      })
-      .catch(error => this.setState({ error }))
+    this.props
+      .updateCatalogItem(values)
+      .then(() => history.push('/catalog'))
   }
 
   render() {
     return (
       <div className="catalog-item-edit-container">
-        {this.state.item && <CatalogItemEdit item={this.state.item} onSubmit={this.onSubmit} />}
+        {this.props.item && <CatalogItemEdit item={this.props.item} onSubmit={this.onSubmit} />}
       </div>
     )
   }
@@ -72,4 +41,18 @@ CatalogItemEditContainer.propTypes = {
   match: PropTypes.object,
 }
 
-export default CatalogItemEditContainer
+const mapStateToProps = (state, ownProps) => {
+  return {
+    item: state.catalog.data.find(item => item.id === ownProps.match.params.id)
+  }
+}
+
+const CatalogItemEditContainerConnected = connect(
+  mapStateToProps,
+  actions,
+)(CatalogItemEditContainer)
+
+export {
+  CatalogItemEditContainerConnected as default,
+  CatalogItemEditContainer
+}
