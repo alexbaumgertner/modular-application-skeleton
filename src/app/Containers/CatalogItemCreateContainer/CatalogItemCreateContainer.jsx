@@ -9,8 +9,8 @@ import { actions } from '../CatalogContainer/CatalogContainer.redux'
 class CatalogItemCreateContainer extends Component {
   onSubmit = (values) => {
     this.props
-      .saveCatalogItem(values)
-      .then(({ item: { id } }) => this.props.history.push(`/catalog/${id}`))
+      .createCatalogItem(values)
+      .then(({ id }) => this.props.history.push(`/catalog/${id}`))
   }
 
   render() {

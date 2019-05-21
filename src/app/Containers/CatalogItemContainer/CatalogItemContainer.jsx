@@ -17,7 +17,7 @@ class CatalogItemContainer extends Component {
       }
     } = this.props
 
-    this.props.getCatalogItem(itemId)
+    this.props.readCatalogItem(itemId)
   }
 
   render() {

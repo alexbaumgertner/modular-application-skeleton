@@ -10,7 +10,7 @@ import './CatalogContainer.css'
 
 class CatalogContainer extends Component {
   componentDidMount() {
-    this.props.getCatalogItems()
+    this.props.readCatalogItems()
   }
 
   onSave = (values) => {
