@@ -56,7 +56,7 @@ const generateProfile = () => {
 const data = {
   catalog,
   users,
-  profile: runNTimes(1)(generateProfile),
+  profile: generateProfile(),
 }
 
 fs.writeFileSync(path.join(__dirname, 'db.json'), JSON.stringify(data))

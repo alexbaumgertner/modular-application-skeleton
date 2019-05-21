@@ -12,6 +12,7 @@ class CatalogList extends Component {
         key={catalogItem.id}
         item={catalogItem}
         onSave={this.props.onSave}
+        onDelete={this.props.onDelete}
       />
     )
   }

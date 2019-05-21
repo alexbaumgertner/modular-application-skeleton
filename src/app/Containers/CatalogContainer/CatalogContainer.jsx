@@ -1,36 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
 import { CatalogList } from '../../Components'
+import { actions } from './CatalogContainer.redux'
 import './CatalogContainer.css'
 
 class CatalogContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      catalog: [],
-      error: null,
-    }
-  }
-
   componentDidMount() {
-    fetch('http://localhost:3333/catalog')
-      .then(result => result.json())
-      .then(catalog => this.setState({ catalog }))
-      .catch(error => this.setState({ error }))
+    this.props.fetchCatalog()
   }
 
   onSave = (values) => {
-    fetch(`http://localhost:3333/catalog/${values.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values), // body data type must match "Content-Type" header
-    })
-      .then(result => result.json())
-      .then(item => console.log('item: ', item))
-      .catch(error => this.setState({ error }))
+    this.props.updateCatalogItem(values)
+  }
+
+  onDelete = (itemId) => {
+    this.props.deleteCatalogItem(itemId)
   }
 
   renderFirstItem(item) {
@@ -47,7 +35,7 @@ class CatalogContainer extends Component {
   render() {
     const {
       catalog,
-    } = this.state
+    } = this.props
 
     const firstItem = catalog[0]
 
@@ -55,9 +43,11 @@ class CatalogContainer extends Component {
       <div className="catalog-container">
         {firstItem && this.renderFirstItem(firstItem)}
         <div className="catalog-container__list">
+          <Link to={`/catalog/new`}><Button>Create</Button></Link>
           <CatalogList
             catalog={catalog}
             onSave={this.onSave}
+            onDelete={this.onDelete}
           />
         </div>
       </div>
@@ -69,4 +59,19 @@ CatalogContainer.propTypes = {
   catalog: PropTypes.array,
 }
 
-export default CatalogContainer
+const mapStateToProps = state => {
+  return {
+    catalog: state.catalog.data,
+    ui: state.catalog.ui,
+  }
+}
+
+const CatalogContainerConnected = connect(
+  mapStateToProps,
+  actions,
+)(CatalogContainer)
+
+export {
+  CatalogContainerConnected as default,
+  CatalogContainer,
+}

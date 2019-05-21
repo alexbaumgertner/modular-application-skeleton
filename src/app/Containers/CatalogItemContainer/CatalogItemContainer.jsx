@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 
 import { CatalogItem } from '../../Components'
+import { actions } from '../CatalogContainer/CatalogContainer.redux'
 
 class CatalogItemContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      item: null,
-    };
-  }
-
   componentDidMount() {
     const {
       match: {
@@ -23,12 +17,8 @@ class CatalogItemContainer extends Component {
       }
     } = this.props
 
-    fetch(`http://localhost:3333/catalog/${itemId}`)
-      .then(result => result.json())
-      .then(item => this.setState({ item }))
-      .catch(error => this.setState({ error }))
+    this.props.getCatalogItem(itemId)
   }
-
 
   render() {
     const {
@@ -36,13 +26,14 @@ class CatalogItemContainer extends Component {
         params: {
           id: itemId,
         }
-      }
+      },
+      item,
     } = this.props
 
     return (
       <div className="catalog-item-container">
         <Link to={`/catalog/${itemId}/edit`}><Button>Edit</Button></Link>
-        {this.state.item && <CatalogItem item={this.state.item} />}
+        {item && <CatalogItem item={item} />}
       </div>
     )
   }
@@ -52,4 +43,18 @@ CatalogItemContainer.propTypes = {
   match: PropTypes.object,
 }
 
-export default CatalogItemContainer
+const mapStateToProps = (state, ownProps) => {
+  return {
+    item: state.catalog.data.find(item => item.id === ownProps.match.params.id)
+  }
+}
+
+const CatalogItemContainerConnected = connect(
+  mapStateToProps,
+  actions,
+)(CatalogItemContainer)
+
+export {
+  CatalogItemContainerConnected as default,
+  CatalogItemContainer,
+}
