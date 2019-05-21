@@ -9,12 +9,6 @@ import './CatalogContainer.css'
 class CatalogContainer extends Component {
   constructor(props) {
     super(props)
-    /*
-	 this.state = {
-		  catalog: [],
-		  error: null,
-		}
-		*/
   }
 
   componentDidMount() {
@@ -22,18 +16,7 @@ class CatalogContainer extends Component {
   }
 
   onSave = (values) => {
-    /*
-	fetch(`http://localhost:3333/catalog/${values.id}`, {
-		  method: 'PUT',
-		  headers: {
-			'Content-Type': 'application/json',
-		  },
-		  body: JSON.stringify(values), // body data type must match "Content-Type" header
-		})
-		  .then(result => result.json())
-		  .then(item => {})
-		  .catch(error => this.setState({ error }))
-		  */
+    this.props.updateCatalogItem(values)
   }
 
   renderFirstItem(item) {
@@ -73,7 +56,6 @@ CatalogContainer.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log("mapStateToProps state: ", state.catalog); // eslint-disable-line
   return {
     catalog: state.catalog.data,
     ui: state.catalog.ui,
