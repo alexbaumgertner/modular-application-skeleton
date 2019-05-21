@@ -1,38 +1,31 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
 import rootReducer from '../Containers/rootReducer'
 
-const composeEnhancers =
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+/**
+ * @see https://redux-starter-kit.js.org/api/configurestore#configurestore
+ * @param preloadedState
+ * @returns {EnhancedStore<any, AnyAction>}
+ */
+const configureAppStore = preloadedState => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: [...getDefaultMiddleware()],
+    devTools: {
+      // __REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       // Specify extension’s options like
       // name,
       // actionsBlacklist,
       // actionsCreators,
       // serialize...
-    }) : compose;
-
-/* eslint-disable no-underscore-dangle */
-const configureStore = preloadedState => {
-  const store = createStore(
-    rootReducer,
+    },
     preloadedState,
-    /** @see http://extension.remotedev.io/#usage */
-    composeEnhancers(
-      applyMiddleware(thunk)
-    ),
-  )
+  })
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../../app/Containers/rootReducer', () => {
-      store.replaceReducer(rootReducer)
-    })
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
+    module.hot.accept('../Containers/rootReducer', () => store.replaceReducer(rootReducer))
   }
 
   return store
 }
-/* eslint-enable */
 
-export default configureStore
+export default configureAppStore
