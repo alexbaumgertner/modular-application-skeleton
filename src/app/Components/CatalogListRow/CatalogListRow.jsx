@@ -13,7 +13,7 @@ class CatalogListRow extends Component {
     }
   }
 
-  onClick = () => {
+  onEdit = () => {
     this.setState({
       mode: 'edit',
     })
@@ -43,6 +43,14 @@ class CatalogListRow extends Component {
         item: updatedItem,
       }
     })
+  }
+
+  onDelete = () => {
+    this.setState({
+      mode: 'show',
+    })
+
+    this.props.onDelete(this.state.item.id)
   }
 
   render() {
@@ -101,7 +109,10 @@ class CatalogListRow extends Component {
           {
             this.state.mode === 'edit' ?
               (<Button primary onClick={this.onSave}>Save</Button>) :
-              (<Button onClick={this.onClick}>Edit</Button>)
+              (<>
+                <Button onClick={this.onEdit}>Edit</Button>
+                <Button negative onClick={this.onDelete}>Delete</Button>
+              </>)
           }
         </Table.Cell>
       </Table.Row>

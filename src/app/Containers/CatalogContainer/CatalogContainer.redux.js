@@ -119,7 +119,30 @@ const updateCatalogItem = (values) => {
 }
 
 // delete
-const deleteCatalogItem = itemId => {}
+const deleteCatalogItem = itemId => {
+  return dispatch => {
+    dispatch({
+      type: DELETE_ITEM_START,
+    })
+
+    return fetch(`http://localhost:3333/catalog/${itemId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(result => result.json())
+      .then(() => dispatch({
+        type: DELETE_ITEM_SUCCESS,
+        itemId,
+      }))
+      .catch(error => dispatch({
+        type: DELETE_ITEM_ERROR,
+        error,
+      }))
+  }
+}
 
 const initialState = {
   data: [],
@@ -248,6 +271,33 @@ const catalogContainerReducer = (state = initialState, action) => {
       return state
     case UPDATE_ITEM_ERROR:
       state = {
+        ui: {
+          state: 'ERROR',
+          error: action.error,
+        },
+      }
+      return state
+    case DELETE_ITEM_START:
+      state = {
+        ...state,
+        ui: {
+          state: 'START',
+          error: null,
+        },
+      }
+      return state
+    case DELETE_ITEM_SUCCESS:
+      state = {
+        data: state.data.filter(item => item.id !== action.itemId),
+        ui: {
+          state: 'SUCCESS',
+          error: null,
+        },
+      }
+      return state
+    case DELETE_ITEM_ERROR:
+      state = {
+        ...state,
         ui: {
           state: 'ERROR',
           error: action.error,

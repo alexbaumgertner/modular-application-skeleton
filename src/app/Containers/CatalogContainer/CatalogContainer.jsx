@@ -17,6 +17,10 @@ class CatalogContainer extends Component {
     this.props.updateCatalogItem(values)
   }
 
+  onDelete = (itemId) => {
+    this.props.deleteCatalogItem(itemId)
+  }
+
   renderFirstItem(item) {
     return (
       <div className="catalog-container__first">
@@ -43,6 +47,7 @@ class CatalogContainer extends Component {
           <CatalogList
             catalog={catalog}
             onSave={this.onSave}
+            onDelete={this.onDelete}
           />
         </div>
       </div>
