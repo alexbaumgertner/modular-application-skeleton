@@ -188,6 +188,7 @@ const catalogContainerReducer = (state = initialState, action) => {
         },
       }
       return state
+
     case CREATE_ITEM_START:
       state = {
         ...state,
@@ -215,6 +216,7 @@ const catalogContainerReducer = (state = initialState, action) => {
         },
       }
       return state
+
     case READ_ITEM_START:
       state = {
         ...state,
@@ -247,6 +249,7 @@ const catalogContainerReducer = (state = initialState, action) => {
         },
       }
       return state
+
     case UPDATE_ITEM_START:
       state = {
         ...state,
@@ -277,6 +280,7 @@ const catalogContainerReducer = (state = initialState, action) => {
         },
       }
       return state
+
     case DELETE_ITEM_START:
       state = {
         ...state,
