@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
 import { CatalogList } from '../../Components'
 import { actions } from './CatalogContainer.redux'
 import './CatalogContainer.css'
 
 class CatalogContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.fetchCatalog()
   }
@@ -41,6 +39,7 @@ class CatalogContainer extends Component {
       <div className="catalog-container">
         {firstItem && this.renderFirstItem(firstItem)}
         <div className="catalog-container__list">
+          <Link to={`/catalog/new`}><Button>Create</Button></Link>
           <CatalogList
             catalog={catalog}
             onSave={this.onSave}

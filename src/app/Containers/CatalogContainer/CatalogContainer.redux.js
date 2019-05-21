@@ -45,7 +45,30 @@ const getCatalog = () => {
 }
 
 // create
-const saveCatalogItem = () => {
+const saveCatalogItem = (values) => {
+  return dispatch => {
+    dispatch({
+      type: CREATE_ITEM_START,
+    })
+
+    return fetch(`http://localhost:3333/catalog/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+      .then(result => result.json())
+      .then(item => dispatch({
+        type: CREATE_ITEM_SUCCESS,
+        item,
+      }))
+      .catch(error => dispatch({
+        type: CREATE_ITEM_ERROR,
+        error,
+      }))
+  }
 }
 
 // read
@@ -96,6 +119,7 @@ const updateCatalogItem = (values) => {
 }
 
 // delete
+const deleteCatalogItem = itemId => {}
 
 const initialState = {
   data: [],
@@ -135,6 +159,33 @@ const catalogContainerReducer = (state = initialState, action) => {
       return state
     case READ_ALL_ERROR:
       state = {
+        ui: {
+          state: 'ERROR',
+          error: action.error,
+        },
+      }
+      return state
+    case CREATE_ITEM_START:
+      state = {
+        ...state,
+        ui: {
+          state: 'START',
+          error: null,
+        },
+      }
+      return state
+    case CREATE_ITEM_SUCCESS:
+      state = {
+        data: [...state.data, action.item],
+        ui: {
+          state: 'SUCCESS',
+          error: null,
+        },
+      }
+      return state
+    case CREATE_ITEM_ERROR:
+      state = {
+        ...state,
         ui: {
           state: 'ERROR',
           error: action.error,
@@ -210,8 +261,10 @@ const catalogContainerReducer = (state = initialState, action) => {
 
 const actions = {
   fetchCatalog: getCatalog,
+  saveCatalogItem,
   getCatalogItem,
   updateCatalogItem,
+  deleteCatalogItem,
 }
 
 export {
