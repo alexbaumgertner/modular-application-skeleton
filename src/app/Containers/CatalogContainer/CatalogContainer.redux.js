@@ -1,8 +1,8 @@
-const prefix = '@catalog/'
+import {
+  createSlice,
+} from 'redux-starter-kit'
 
-const READ_ALL_START = `${prefix}READ_ALL_START`
-const READ_ALL_SUCCESS = `${prefix}READ_ALL_SUCCESS`
-const READ_ALL_ERROR = `${prefix}READ_ALL_ERROR`
+const prefix = '@catalog/'
 
 /**
  * CRUD operations
@@ -24,25 +24,6 @@ const DELETE_ITEM_START = `${prefix}DELETE_ITEM_START`
 const DELETE_ITEM_SUCCESS = `${prefix}DELETE_ITEM_SUCCESS`
 const DELETE_ITEM_ERROR = `${prefix}DELETE_ITEM_ERROR`
 
-// read all
-const getCatalog = () => {
-  return dispatch => {
-    dispatch({
-      type: READ_ALL_START,
-    })
-
-    fetch('http://localhost:3333/catalog')
-      .then(result => result.json())
-      .then(catalog => dispatch({
-        type: READ_ALL_SUCCESS,
-        catalog,
-      }))
-      .catch(error => dispatch({
-        type: READ_ALL_ERROR,
-        error,
-      }))
-  }
-}
 
 // create
 const saveCatalogItem = (values) => {
@@ -162,32 +143,6 @@ const initialState = {
  */
 const catalogContainerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case READ_ALL_START:
-      state = {
-        data: [],
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case READ_ALL_SUCCESS:
-      state = {
-        data: action.catalog,
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case READ_ALL_ERROR:
-      state = {
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
 
     case CREATE_ITEM_START:
       state = {
@@ -313,15 +268,63 @@ const catalogContainerReducer = (state = initialState, action) => {
   }
 }
 
+/**
+ * @see https://redux-starter-kit.js.org/api/createslice#createslice
+ */
+const catalogSlice = createSlice({
+  slice: '@catalogSlice',
+  initialState: {
+    data: [],
+    /** @see  https://github.com/reduxjs/redux/issues/595
+     * conventions / recommendations for UI state
+     */
+    ui: {
+      state: 'init',
+      error: null,
+    },
+  },
+  reducers: {
+    setCatalogItemsLoading: (state, action) => {
+      const { isLoading } = action.payload
+      state.ui = {
+        isLoading,
+        error: null,
+      }
+    },
+    loadCatalogItems: (state, action) => {
+      state.data = action.payload.items
+    },
+    setCatalogItemsError: (state, action) => {
+      state.ui.error = action.payload.error
+    },
+  },
+})
+
+const { actions: catalogActions, reducer } = catalogSlice
+
+const getCatalogItems = () => {
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemsLoading({ isLoading: true }))
+
+    try {
+      const response = await fetch('http://localhost:3333/catalog')
+      const items = await response.json()
+      dispatch(catalogActions.loadCatalogItems({ items }))
+
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemsError({ error }))
+    }
+
+    dispatch(catalogActions.setCatalogItemsLoading({ isLoading: false }))
+  }
+}
+
 const actions = {
-  fetchCatalog: getCatalog,
-  saveCatalogItem,
-  getCatalogItem,
-  updateCatalogItem,
-  deleteCatalogItem,
+  ...catalogActions,
+  getCatalogItems,
 }
 
 export {
-  catalogContainerReducer as default,
+  reducer as default,
   actions,
 }
