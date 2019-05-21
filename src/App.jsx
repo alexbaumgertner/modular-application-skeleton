@@ -17,6 +17,8 @@ import styles from './App.module.css'
 
 const store = configureStore()
 
+store.dispatch({ type: 'USER_FETCH_REQUESTED' })
+
 /**
  * @see https://react-redux.js.org/api
  */
