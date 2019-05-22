@@ -33,7 +33,7 @@ class App extends Component {
             <header className={b('header')}>
               <Menu className={b('menu')}>
                 <Menu.Item><Link to="/">Main</Link></Menu.Item>
-                <Menu.Item><Link to="/catalog">Catalog</Link></Menu.Item>
+                <Menu.Item data-test-id="main-menu__item_catalog"><Link to="/catalog">Catalog</Link></Menu.Item>
                 <Menu.Item><Link to="/contacts">Contacts</Link></Menu.Item>
                 <Menu.Item><Link to="/favorites">Favorites</Link></Menu.Item>
                 <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
