@@ -6,7 +6,18 @@ import { createSlice } from 'redux-starter-kit'
 const catalogSlice = createSlice({
   slice: '@catalogSlice',
   initialState: {
-    data: [],
+    data: [
+      {
+        'name': '',
+        'image': '',
+        'text': '',
+        'date': '',
+        'price': 0,
+        'productAdjective': '',
+        'department': '',
+        'id': '',
+      },
+    ],
     /** @see  https://github.com/reduxjs/redux/issues/595
      * conventions / recommendations for UI state
      */

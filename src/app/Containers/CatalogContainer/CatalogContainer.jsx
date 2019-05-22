@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { createSelector } from 'redux-starter-kit'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 
@@ -35,6 +36,7 @@ class CatalogContainer extends Component {
   render() {
     const {
       catalog,
+      totalPrice,
     } = this.props
 
     const firstItem = catalog[0]
@@ -46,6 +48,7 @@ class CatalogContainer extends Component {
           <Link to={`/catalog/new`}><Button>Create</Button></Link>
           <CatalogList
             catalog={catalog}
+            totalPrice={totalPrice}
             onSave={this.onSave}
             onDelete={this.onDelete}
           />
@@ -59,10 +62,24 @@ CatalogContainer.propTypes = {
   catalog: PropTypes.array,
 }
 
+const catalogSelector = createSelector(
+  ['catalog.data']
+)
+
+const catalogTotalPriceSelector = createSelector(
+  [catalogSelector],
+  catalog => catalog.reduce((acc, cur) => (acc + parseFloat(cur.price)), 0)
+)
+
+const catalogUISelector = createSelector(
+  ['catalog.ui']
+)
+
 const mapStateToProps = state => {
   return {
-    catalog: state.catalog.data,
-    ui: state.catalog.ui,
+    catalog: catalogSelector(state),
+    totalPrice: catalogTotalPriceSelector(state),
+    ui: catalogUISelector(state),
   }
 }
 
