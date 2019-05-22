@@ -15,7 +15,7 @@ class CatalogContainer extends Component {
   }
 
   onSave = (values) => {
-    this.props.updateCatalogItem(values)
+    this.props.updateCatalogItem(values, values.id)
   }
 
   onDelete = (itemId) => {
