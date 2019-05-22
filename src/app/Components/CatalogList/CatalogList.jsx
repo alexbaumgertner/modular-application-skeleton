@@ -56,7 +56,7 @@ class CatalogList extends Component {
 }
 
 CatalogList.propTypes = {
-  catalog: PropTypes.array,
+  catalog: PropTypes.array.isRequired,
   totalPrice: PropTypes.number,
   onSave: PropTypes.func,
 }
