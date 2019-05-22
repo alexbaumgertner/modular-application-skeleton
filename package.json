@@ -12,7 +12,8 @@
     "lint:eslint": "eslint --ext .js,.jsx .",
     "lint:prettier": "prettier '**/*.{js,jsx,json}' --write",
     "run-mock-server": "node ./utils/dev/run-mock-server.js",
-    "generate-mock-data": "node ./utils/dev/generate-mock-data.js"
+    "generate-mock-data": "node ./utils/dev/generate-mock-data.js",
+    "jest:e2e": "jest --config e2e-tests/jest.config.js --forceExit --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "date-fns": "^1.30.1",
     "formik": "^1.5.4",
     "prop-types": "^15.7.2",
+    "puppeteer": "^1.16.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^7.0.3",
