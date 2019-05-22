@@ -13,7 +13,11 @@ import {
 } from './app/Routes'
 
 import configureStore from './app/_redux/configureStore'
-import styles from './App.module.css'
+
+import block from './app/utils/classname'
+import './App.module.css'
+
+const b = block('app')
 
 const store = configureStore()
 
@@ -25,9 +29,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className={styles.app}>
-            <header className={styles.app__header}>
-              <Menu className={styles.app__menu}>
+          <div className={b()}>
+            <header className={b('header')}>
+              <Menu className={b('menu')}>
                 <Menu.Item><Link to="/">Main</Link></Menu.Item>
                 <Menu.Item><Link to="/catalog">Catalog</Link></Menu.Item>
                 <Menu.Item><Link to="/contacts">Contacts</Link></Menu.Item>
@@ -36,7 +40,7 @@ class App extends Component {
                 <Menu.Item><Link to="/admin">Admin</Link></Menu.Item>
               </Menu>
             </header>
-            <main className={styles.app__main}>
+            <main className={b('main')}>
               <Route exact path="/" component={MainRoute} />
               <Route path="/admin" component={AdminRoute} />
               <Route path="/catalog" component={CatalogRoute} />
