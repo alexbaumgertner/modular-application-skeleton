@@ -28,7 +28,7 @@ describe('Главная страница', () => {
     const result = await page.$eval('.main', ({ innerText }) => innerText)
 
     expect(result).toBe('Main')
-  })
+  }, 60000)
 
   test('Должен переключаться на каталог', async () => {
     await page.goto('http://localhost:3000/')
