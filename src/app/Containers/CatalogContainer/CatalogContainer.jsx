@@ -60,6 +60,10 @@ class CatalogContainer extends Component {
 
 CatalogContainer.propTypes = {
   catalog: PropTypes.array,
+  readCatalogItems: PropTypes.func,
+  updateCatalogItem: PropTypes.func,
+  deleteCatalogItem: PropTypes.func,
+  totalPrice: PropTypes.number,
 }
 
 const catalogSelector = createSelector(

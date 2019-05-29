@@ -42,6 +42,10 @@ class CatalogItemEditContainer extends Component {
 
 CatalogItemEditContainer.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.object,
+  item: PropTypes.object,
+  readCatalogItem: PropTypes.func,
+  updateCatalogItem: PropTypes.func,
 }
 
 const mapStateToProps = (state, ownProps) => {

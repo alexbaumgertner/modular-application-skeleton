@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { CatalogItemEdit } from '../../Components'
 import { actions } from '../CatalogContainer/CatalogContainer.redux'
+import PropTypes from 'prop-types'
 
 
 class CatalogItemCreateContainer extends Component {
@@ -22,7 +22,10 @@ class CatalogItemCreateContainer extends Component {
   }
 }
 
-CatalogItemCreateContainer.propTypes = {}
+CatalogItemCreateContainer.propTypes = {
+  createCatalogItem: PropTypes.func,
+  history: PropTypes.object,
+}
 
 const CatalogItemCreateContainerConnected = connect(
   null,

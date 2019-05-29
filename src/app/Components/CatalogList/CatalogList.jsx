@@ -59,6 +59,7 @@ CatalogList.propTypes = {
   catalog: PropTypes.array.isRequired,
   totalPrice: PropTypes.number,
   onSave: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default CatalogList
