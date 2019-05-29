@@ -14,5 +14,6 @@ server.use(router)
  * @see https://github.com/typicode/json-server
  */
 server.listen(3333, () => {
+  // eslint-disable-next-line no-console
   console.log('JSON Server is running')
 })

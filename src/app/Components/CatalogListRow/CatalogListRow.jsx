@@ -122,6 +122,8 @@ class CatalogListRow extends Component {
 
 CatalogListRow.propTypes = {
   item: PropTypes.object,
+  onSave: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default CatalogListRow

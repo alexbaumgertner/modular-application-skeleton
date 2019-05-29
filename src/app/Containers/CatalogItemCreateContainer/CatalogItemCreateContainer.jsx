@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { CatalogItemEdit } from '../../Components'
 import { actions } from '../CatalogContainer/CatalogContainer.redux'
+import PropTypes from 'prop-types'
 
 
 class CatalogItemCreateContainer extends Component {
   onSubmit = (values) => {
     this.props
-      .saveCatalogItem(values)
-      .then(({ item: { id } }) => this.props.history.push(`/catalog/${id}`))
+      .createCatalogItem(values)
+      .then(({ id }) => this.props.history.push(`/catalog/${id}`))
   }
 
   render() {
@@ -22,7 +22,10 @@ class CatalogItemCreateContainer extends Component {
   }
 }
 
-CatalogItemCreateContainer.propTypes = {}
+CatalogItemCreateContainer.propTypes = {
+  createCatalogItem: PropTypes.func,
+  history: PropTypes.object,
+}
 
 const CatalogItemCreateContainerConnected = connect(
   null,

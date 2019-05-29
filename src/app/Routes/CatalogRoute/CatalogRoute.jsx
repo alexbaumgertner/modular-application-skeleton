@@ -14,7 +14,7 @@ const CatalogRoute = () => {
     <div className="catalog-route">
       <Header as='h2' icon textAlign='center'>
         <Icon name='list layout' circular />
-        <Header.Content>Catalog Route</Header.Content>
+        <Header.Content data-test-id="catalog-route__header">Catalog Route</Header.Content>
       </Header>
       <Switch>
         <Route exact path="/catalog" component={CatalogContainer} />

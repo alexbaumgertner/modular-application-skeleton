@@ -17,7 +17,7 @@ class CatalogItemContainer extends Component {
       }
     } = this.props
 
-    this.props.getCatalogItem(itemId)
+    this.props.readCatalogItem(itemId)
   }
 
   render() {
@@ -41,6 +41,8 @@ class CatalogItemContainer extends Component {
 
 CatalogItemContainer.propTypes = {
   match: PropTypes.object,
+  readCatalogItem: PropTypes.func,
+  item: PropTypes.object,
 }
 
 const mapStateToProps = (state, ownProps) => {

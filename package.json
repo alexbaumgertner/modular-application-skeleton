@@ -12,7 +12,19 @@
     "lint:eslint": "eslint --ext .js,.jsx .",
     "lint:prettier": "prettier '**/*.{js,jsx,json}' --write",
     "run-mock-server": "node ./utils/dev/run-mock-server.js",
-    "generate-mock-data": "node ./utils/dev/generate-mock-data.js"
+    "generate-mock-data": "node ./utils/dev/generate-mock-data.js",
+    "jest:e2e": "jest --config e2e-tests/jest.config.js --forceExit --detectOpenHandles"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --ext .js,.jsx --fix  --max-warnings 0",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -38,15 +50,23 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@bem-react/classname": "^1.5.0",
     "date-fns": "^1.30.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.1",
     "formik": "^1.5.4",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
     "prop-types": "^15.7.2",
+    "puppeteer": "^1.16.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
+    "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
+    "redux-starter-kit": "^0.5.1",
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.87.1"
   },

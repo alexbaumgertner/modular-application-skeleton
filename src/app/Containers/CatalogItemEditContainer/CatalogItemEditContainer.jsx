@@ -15,16 +15,19 @@ class CatalogItemEditContainer extends Component {
       },
     } = this.props
 
-    this.props.getCatalogItem(itemId)
+    this.props.readCatalogItem(itemId)
   }
 
   onSubmit = (values) =>  {
     const {
       history,
+      item: {
+        id: itemId
+      }
     } = this.props
 
     this.props
-      .updateCatalogItem(values)
+      .updateCatalogItem(values, itemId)
       .then(() => history.push('/catalog'))
   }
 
@@ -39,6 +42,10 @@ class CatalogItemEditContainer extends Component {
 
 CatalogItemEditContainer.propTypes = {
   match: PropTypes.object,
+  history: PropTypes.object,
+  item: PropTypes.object,
+  readCatalogItem: PropTypes.func,
+  updateCatalogItem: PropTypes.func,
 }
 
 const mapStateToProps = (state, ownProps) => {

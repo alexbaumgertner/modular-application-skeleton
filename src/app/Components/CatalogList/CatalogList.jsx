@@ -20,6 +20,7 @@ class CatalogList extends Component {
   render() {
     const {
       catalog,
+      totalPrice,
     } = this.props
 
     return (
@@ -38,6 +39,16 @@ class CatalogList extends Component {
           <Table.Body>
             {catalog.map(this.renderItem)}
           </Table.Body>
+          <Table.Footer>
+            <Table.Row>
+              <Table.Cell>ИТОГО</Table.Cell>
+              <Table.Cell>{totalPrice}</Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table>
       </div>
     )
@@ -45,8 +56,10 @@ class CatalogList extends Component {
 }
 
 CatalogList.propTypes = {
-  catalog: PropTypes.array,
+  catalog: PropTypes.array.isRequired,
+  totalPrice: PropTypes.number,
   onSave: PropTypes.func,
+  onDelete: PropTypes.func,
 }
 
 export default CatalogList

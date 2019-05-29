@@ -1,327 +1,212 @@
-const prefix = '@catalog/'
-
-const READ_ALL_START = `${prefix}READ_ALL_START`
-const READ_ALL_SUCCESS = `${prefix}READ_ALL_SUCCESS`
-const READ_ALL_ERROR = `${prefix}READ_ALL_ERROR`
+import { createSlice } from 'redux-starter-kit'
 
 /**
- * CRUD operations
- * @see https://wikipedia.org/wiki/CRUD
+ * @see https://redux-starter-kit.js.org/api/createslice#createslice
  */
-const CREATE_ITEM_START = `${prefix}CREATE_ITEM_START`
-const CREATE_ITEM_SUCCESS = `${prefix}CREATE_ITEM_SUCCESS`
-const CREATE_ITEM_ERROR = `${prefix}CREATE_ITEM_ERROR`
+const catalogSlice = createSlice({
+  slice: '@catalogSlice',
+  initialState: {
+    data: [
+      {
+        'name': '',
+        'image': '',
+        'text': '',
+        'date': '',
+        'price': 0,
+        'productAdjective': '',
+        'department': '',
+        'id': '',
+      },
+    ],
+    /** @see  https://github.com/reduxjs/redux/issues/595
+     * conventions / recommendations for UI state
+     */
+    ui: {
+      state: 'init',
+      error: null,
+    },
+  },
+  reducers: {
+    setCatalogItemsLoading: (state, action) => {
+      const { isLoading } = action.payload
+      state.ui = {
+        isLoading,
+      }
+    },
+    setCatalogItemsError: (state, action) => {
+      state.ui.error = action.payload.error
+    },
+    setCatalogItemsSuccess: (state, action) => {
+      state.data = action.payload.items
+    },
 
-const READ_ITEM_START = `${prefix}/READ_ITEM_START`
-const READ_ITEM_SUCCESS = `${prefix}/READ_ITEM_SUCCESS`
-const READ_ITEM_ERROR = `${prefix}/READ_ITEM_ERROR`
+    setCatalogItemLoading: (state, action) => {
+      const { itemId, isLoading } = action.payload
+      state.ui = {
+        isLoading,
+        itemId,
+      }
+    },
+    setCatalogItemError: (state, action) => {
+      const { itemId, error } = action.payload
+      state.ui = {
+        itemId,
+        error,
+      }
+    },
 
-const UPDATE_ITEM_START = `${prefix}UPDATE_ITEM_START`
-const UPDATE_ITEM_SUCCESS = `${prefix}UPDATE_ITEM_SUCCESS`
-const UPDATE_ITEM_ERROR = `${prefix}UPDATE_ITEM_ERROR`
+    createCatalogItemSuccess: (state, action) => {
+      const { item } = action.payload
+      state.data.push(item)
+    },
+    updateCatalogItemSuccess: (state, action) => {
+      const { item } = action.payload
+      state.data[state.data.findIndex(i => i.id === item.id)] = item
+    },
+    readCatalogItemSuccess: (state, action) => {
+      const { item } = action.payload
+      const itemIndex = state.data.findIndex(i => i.id === item.id)
 
-const DELETE_ITEM_START = `${prefix}DELETE_ITEM_START`
-const DELETE_ITEM_SUCCESS = `${prefix}DELETE_ITEM_SUCCESS`
-const DELETE_ITEM_ERROR = `${prefix}DELETE_ITEM_ERROR`
+      if (itemIndex) {
+        state.data[itemIndex] = item
+      } else {
+        state.data.push(item)
+      }
+    },
+
+    deleteCatalogItemSuccess: (state, action) => {
+      const { itemId } = action.payload
+      state.data = state.data.filter(item => item.id !== itemId)
+    },
+  },
+})
+
+const { actions: catalogActions, reducer } = catalogSlice
 
 // read all
-const getCatalog = () => {
-  return dispatch => {
-    dispatch({
-      type: READ_ALL_START,
-    })
+const readCatalogItems = () => {
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemsLoading({ isLoading: true }))
 
-    fetch('http://localhost:3333/catalog')
-      .then(result => result.json())
-      .then(catalog => dispatch({
-        type: READ_ALL_SUCCESS,
-        catalog,
-      }))
-      .catch(error => dispatch({
-        type: READ_ALL_ERROR,
-        error,
-      }))
+    try {
+      const response = await fetch('http://localhost:3333/catalog')
+      const items = await response.json()
+      dispatch(catalogActions.setCatalogItemsSuccess({ items }))
+
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemsError({ error }))
+    }
+
+    dispatch(catalogActions.setCatalogItemsLoading({ isLoading: false }))
   }
 }
 
 // create
-const saveCatalogItem = (values) => {
-  return dispatch => {
-    dispatch({
-      type: CREATE_ITEM_START,
-    })
+const createCatalogItem = values => {
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemLoading({ itemId: values.id, isLoading: true }))
+    let item
 
-    return fetch(`http://localhost:3333/catalog/`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const response = await fetch('http://localhost:3333/catalog',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
         },
-        body: JSON.stringify(values),
-      })
-      .then(result => result.json())
-      .then(item => dispatch({
-        type: CREATE_ITEM_SUCCESS,
-        item,
-      }))
-      .catch(error => dispatch({
-        type: CREATE_ITEM_ERROR,
-        error,
-      }))
+      )
+      item = await response.json()
+      dispatch(catalogActions.createCatalogItemSuccess({ item }))
+
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemError({ error }))
+    }
+
+    dispatch(catalogActions.setCatalogItemLoading({ itemId: values.id, isLoading: false }))
+    return item
   }
 }
 
 // read
-const getCatalogItem = (itemId) => {
-  return dispatch => {
-    dispatch({
-      type: READ_ITEM_START,
-    })
+const readCatalogItem = itemId => {
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: true }))
 
-    return fetch(`http://localhost:3333/catalog/${itemId}`)
-      .then(result => result.json())
-      .then(item => dispatch({
-        type: READ_ITEM_SUCCESS,
-        item,
-      }))
-      .catch(error => dispatch({
-        type: READ_ITEM_ERROR,
-        error,
-      }))
+    try {
+      const response = await fetch(`http://localhost:3333/catalog/${itemId}`)
+      const item = await response.json()
+
+      dispatch(catalogActions.readCatalogItemSuccess({ item }))
+
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemError({ error }))
+    }
+
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: false }))
   }
 }
 
 // update
-const updateCatalogItem = (values) => {
-  return dispatch => {
-    dispatch({
-      type: UPDATE_ITEM_START,
-    })
+const updateCatalogItem = (values, itemId) => {
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: true }))
 
-    return fetch(`http://localhost:3333/catalog/${values.id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const response = await fetch(`http://localhost:3333/catalog/${itemId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
         },
-        body: JSON.stringify(values),
-      })
-      .then(result => result.json())
-      .then(item => dispatch({
-        type: UPDATE_ITEM_SUCCESS,
-        item,
-      }))
-      .catch(error => dispatch({
-        type: UPDATE_ITEM_ERROR,
-        error,
-      }))
+      )
+      const item = await response.json()
+
+      dispatch(catalogActions.updateCatalogItemSuccess({ item }))
+
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemError({ error }))
+    }
+
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: false }))
   }
 }
 
 // delete
 const deleteCatalogItem = itemId => {
-  return dispatch => {
-    dispatch({
-      type: DELETE_ITEM_START,
-    })
+  return async dispatch => {
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: true }))
 
-    return fetch(`http://localhost:3333/catalog/${itemId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      await fetch(`http://localhost:3333/catalog/${itemId}`,
+        {
+          method: 'DELETE',
         },
-      })
-      .then(result => result.json())
-      .then(() => dispatch({
-        type: DELETE_ITEM_SUCCESS,
-        itemId,
-      }))
-      .catch(error => dispatch({
-        type: DELETE_ITEM_ERROR,
-        error,
-      }))
-  }
-}
+      )
 
-const initialState = {
-  data: [],
-  /** @see  https://github.com/reduxjs/redux/issues/595
-   * conventions / recommendations for UI state
-   */
-  ui: {
-    state: 'init',
-    error: null,
-  },
-}
+      dispatch(catalogActions.deleteCatalogItemSuccess({ itemId }))
 
-/**
- * @see https://redux.js.org/basics/reducers#handling-actions
- * @param {Object} state Часть общего состояния для catalog (store.getState().catalog)
- * @param {Object} action
- */
-const catalogContainerReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case READ_ALL_START:
-      state = {
-        data: [],
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case READ_ALL_SUCCESS:
-      state = {
-        data: action.catalog,
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case READ_ALL_ERROR:
-      state = {
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
+    } catch (error) {
+      dispatch(catalogActions.setCatalogItemError({ error }))
+    }
 
-    case CREATE_ITEM_START:
-      state = {
-        ...state,
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case CREATE_ITEM_SUCCESS:
-      state = {
-        data: [...state.data, action.item],
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case CREATE_ITEM_ERROR:
-      state = {
-        ...state,
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
-
-    case READ_ITEM_START:
-      state = {
-        ...state,
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case READ_ITEM_SUCCESS:
-      state = {
-        /** @see https://devdocs.io/javascript/global_objects/array/map */
-        data: state.data.length > 0 ?
-          state.data.map(item => {
-            if (item.id !== action.item.id) return item
-            return { ...item, ...action.item }
-          }) :
-          [action.item],
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case READ_ITEM_ERROR:
-      state = {
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
-
-    case UPDATE_ITEM_START:
-      state = {
-        ...state,
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case UPDATE_ITEM_SUCCESS:
-      state = {
-        /** @see https://devdocs.io/javascript/global_objects/array/map */
-        data: state.data.map(item => {
-          if (item.id !== action.item.id) return item
-          return { ...item, ...action.item }
-        }),
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case UPDATE_ITEM_ERROR:
-      state = {
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
-
-    case DELETE_ITEM_START:
-      state = {
-        ...state,
-        ui: {
-          state: 'START',
-          error: null,
-        },
-      }
-      return state
-    case DELETE_ITEM_SUCCESS:
-      state = {
-        data: state.data.filter(item => item.id !== action.itemId),
-        ui: {
-          state: 'SUCCESS',
-          error: null,
-        },
-      }
-      return state
-    case DELETE_ITEM_ERROR:
-      state = {
-        ...state,
-        ui: {
-          state: 'ERROR',
-          error: action.error,
-        },
-      }
-      return state
-    default:
-      return state
+    dispatch(catalogActions.setCatalogItemLoading({ itemId, isLoading: false }))
   }
 }
 
 const actions = {
-  fetchCatalog: getCatalog,
-  saveCatalogItem,
-  getCatalogItem,
+  readCatalogItems,
+
+  createCatalogItem,
+  readCatalogItem,
   updateCatalogItem,
   deleteCatalogItem,
 }
 
 export {
-  catalogContainerReducer as default,
+  reducer as default,
   actions,
 }
