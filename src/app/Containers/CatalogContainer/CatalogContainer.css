@@ -1,0 +1,13 @@
+.catalog-container {
+  position: relative;
+}
+
+.catalog-container__first {
+  position: absolute;
+  right: 40px;
+  top: -140px;
+}
+
+.catalog-container__first p {
+  margin: 5px 0 0 0;
+}

@@ -1,0 +1,22 @@
+
+
+.catalog-item-edit__form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 30px auto;
+}
+
+.catalog-item-edit__item {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.catalog-item-edit__field {
+
+}
+
+.catalog-item-edit__field-component {
+  width: 100%;
+  padding: 8px 4px;
+}
