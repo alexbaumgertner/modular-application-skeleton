@@ -7,7 +7,7 @@ import rootReducer from '../Containers/rootReducer'
  * @returns {EnhancedStore<any, AnyAction>}
  */
 const configureAppStore = preloadedState => {
-  const store = configureStore({
+  return configureStore({
     reducer: rootReducer,
     middleware: [...getDefaultMiddleware()],
     devTools: {
@@ -20,8 +20,6 @@ const configureAppStore = preloadedState => {
     },
     preloadedState,
   })
-
-  return store
 }
 
 export default configureAppStore
