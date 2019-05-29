@@ -183,18 +183,16 @@
       "phoneNumber": "573.103.3080 x643"
     }
   ],
-  "profile": [
-    {
-      "id": "7983aca5-1ca3-4a2d-afdd-be91e89a98dc",
-      "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/mashaaaaal/128.jpg",
-      "name": "Kerluke, Raphael",
-      "email": "Jamie.Donnelly@hotmail.com",
-      "password": "5KPPbRJzaVXT9mK",
-      "phoneNumber": "739-744-9110 x76005",
-      "favorites": [
-        "03eab247-367b-4ba5-b0f1-13443a43321b",
-        "b63c1f38-93ba-43cb-b44c-262c8a5f2103"
-      ]
-    }
-  ]
+  "profile": {
+    "id": "9eb0d009-efd2-4ed0-b9e8-9cad869572d1",
+    "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/dmitriychuta/128.jpg",
+    "name": "Hyatt, Kris",
+    "email": "Janelle_McClure50@gmail.com",
+    "password": "eez_7CkVWbtqyWG",
+    "phoneNumber": "742-998-6867",
+    "favorites": [
+      "c459d002-6902-42be-a260-c6be12755b9e",
+      "84bdbe53-741c-40dc-aa1e-6bc492d5ce17"
+    ]
+  }
 }
