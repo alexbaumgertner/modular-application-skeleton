@@ -5,6 +5,7 @@
   "description": "Concept of a modular single page application",
   "main": "src/index.jsx",
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -69,7 +70,8 @@
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.5.1",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.1",
+    "source-map-explorer": "^2.0.1"
   },
   "devDependencies": {
     "babel-jest": "^24.8.0",
