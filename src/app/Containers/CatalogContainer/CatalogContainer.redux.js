@@ -67,7 +67,7 @@ const catalogSlice = createSlice({
       const { item } = action.payload
       const itemIndex = state.data.findIndex(i => i.id === item.id)
 
-      if (itemIndex) {
+      if (itemIndex !== -1) {
         state.data[itemIndex] = item
       } else {
         state.data.push(item)
