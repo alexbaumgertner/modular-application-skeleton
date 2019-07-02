@@ -7,8 +7,12 @@ import PropTypes from 'prop-types'
  * }}
  */
 const userItemPropTypes = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.string,
+  avatar: PropTypes.string,
   name: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  phoneNumber: PropTypes.string,
 })
 
 export default userItemPropTypes
