@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Item } from 'semantic-ui-react'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
+import Markdown from 'react-markdown'
 
 import './CatalogItem.css'
 
@@ -24,7 +25,9 @@ class CatalogItem extends Component {
           <Item className="catalog-item__image" image={image} />
           <Item.Content className="catalog-item__content">
             <Item.Header className="catalog-item__name">name: {name}</Item.Header>
-            <Item.Description>{text}</Item.Description>
+            <Item.Description>
+              <Markdown source={text} />
+            </Item.Description>
             <Item.Meta>
               <div className="catalog-item__date">
                 date: {format(parse(date), 'MM/DD/YYYY')}
