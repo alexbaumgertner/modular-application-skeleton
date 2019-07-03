@@ -24,17 +24,18 @@
       "id": "98e79042-a712-403b-9808-2cae1aee1364",
       "image": "http://lorempixel.com/640/480/technics",
       "images": [
-        "http://lorempixel.com/640/480/technics",
-        "http://lorempixel.com/640/480/people",
-        "http://lorempixel.com/640/480/nature",
-        "http://lorempixel.com/640/480/nature",
-        "http://lorempixel.com/640/480/abstract",
-        "http://lorempixel.com/640/480/sports",
-        "http://lorempixel.com/640/480/food",
-        "https://antrikshy.com/assets/personal-site-assets/react-logo.png",
-        "https://attuale.ru/wp-content/uploads/2018/06/283600-frederika.jpg",
-        "http://lorempixel.com/640/480/food",
-        "http://lorempixel.com/640/480/city"
+        {
+          "small": "https://proxy10.online.ua/oboi/r2-d2/004/221/035/base4bbbfa7802cce.jpg",
+          "big": "https://f.vividscreen.info/soft/291c16af775a20f0b35a389824cd145f/Kitty-Photo-2880x1920.jpg"
+        },
+        {
+          "small": "https://pp.userapi.com/c626728/v626728528/1c5ad/cmsyMLIItw0.jpg",
+          "big": "https://images.wallpaperscraft.com/image/cat_muzzle_sleep_spotted_52396_2048x1152.jpg"
+        },
+        {
+          "small": "http://lorempixel.com/320/240/technics",
+          "big": "https://images.wallpaperscraft.com/image/siberian_cat_fluffy_cat_striped_96033_2560x1600.jpg"
+        }
       ],
       "text": "In et ducimus dicta error. Est reiciendis quo dolor nihil ducimus mollitia tenetur quis. Occaecati cupiditate velit qui sunt. Blanditiis suscipit esse facilis eum. Similique porro facere veniam.\n \rVoluptas eius quaerat repellat cum est saepe provident aspernatur dolorem. Dolores qui quod neque reiciendis dolores adipisci quaerat et qui. Tempora rerum necessitatibus eos vero ea. Suscipit voluptatum dolores voluptatem nulla rerum.\n \rEt est officiis eius dolorum repellat enim. Deleniti quis quaerat eveniet iure temporibus. Nesciunt sunt aut et debitis atque.",
       "name": "Sleek Cotton Table",
