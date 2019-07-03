@@ -2,6 +2,14 @@
   margin: 10px 30px !important;
 }
 
+.catalog-item__images {
+  width: 300px;
+}
+
 .catalog-item__image {
   margin: 0 20px 0 0;
+}
+
+.catalog-item__image_size_big img {
+  width: 400px;
 }

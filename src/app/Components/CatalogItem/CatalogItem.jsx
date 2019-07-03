@@ -11,6 +11,7 @@ class CatalogItem extends Component {
     const {
       name,
       image,
+      images,
       text,
       price,
       productAdjective,
@@ -33,6 +34,11 @@ class CatalogItem extends Component {
               <div className="catalog-item__productAdjective">productAdjective: {productAdjective}</div>
               <div className="catalog-item__department">department: {department}</div>
             </Item.Meta>
+            {images && (
+              <div className="catalog-item__images">
+                {images.map(imageUrl => <Item key={imageUrl} className="catalog-item__image catalog-item__image_size_big" image={imageUrl} />)}
+              </div>
+            )}
           </Item.Content>
         </Item>
       </Item.Group>
