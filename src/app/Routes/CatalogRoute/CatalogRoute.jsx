@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Header, Icon } from 'semantic-ui-react'
 
-import {
-  CatalogContainer,
-  CatalogItemContainer,
-  CatalogItemEditContainer,
-  CatalogItemCreateContainer,
-} from '../../Containers'
+
+const CatalogContainer = lazy(() =>
+  import(/* webpackChunkName: "CatalogContainer" */ '../../Containers/CatalogContainer'),
+)
+const CatalogItemContainer = lazy(() =>
+  import(/* webpackChunkName: "CatalogItemContainer" */ '../../Containers/CatalogItemContainer'),
+)
+const CatalogItemCreateContainer = lazy(() =>
+  import(/* webpackChunkName: "CatalogItemCreateContainer" */ '../../Containers/CatalogItemCreateContainer'),
+)
+const CatalogItemEditContainer = lazy(() =>
+  import(/* webpackChunkName: "CatalogItemEditContainer" */ '../../Containers/CatalogItemEditContainer'),
+)
 
 const CatalogRoute = () => {
   return (

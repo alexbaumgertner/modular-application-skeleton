@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, lazy } from 'react'
 import PropTypes from 'prop-types'
 import { Item } from 'semantic-ui-react'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
-import Markdown from 'react-markdown'
 
 import './CatalogItem.css'
+
+const Markdown = lazy(() =>
+  import(/* webpackChunkName: "Markdown" */ 'react-markdown'),
+)
 
 class CatalogItem extends Component {
   render() {
