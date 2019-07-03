@@ -21,7 +21,7 @@ const configureAppStore = preloadedState => {
     preloadedState,
   })
 
-  if (process.env.NODE_ENV !== 'production' && module.hot) {
+  if (module.hot) {
     module.hot.accept('../Containers/rootReducer', () => store.replaceReducer(rootReducer))
   }
 
