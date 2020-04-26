@@ -34,7 +34,7 @@ class ProfileContainer extends Component {
 
     return (
       <div className="profile-container">
-        <img src={avatar} className="profile-container__avatar" />
+        <img src={avatar} alt="avatar" className="profile-container__avatar" />
         <div className="profile-container__name">{name}</div>
         <div className="profile-container__email">{email}</div>
         <div className="profile-container__password">{password}</div>

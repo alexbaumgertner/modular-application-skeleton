@@ -1,21 +1,40 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
 import { Menu } from 'semantic-ui-react'
 import { Provider } from 'react-redux'
 
+/*
+Если раскоментировать этот код, lazy-loading перестанет работать
 import {
-  AdminRoute,
-  CatalogRoute,
-  ContactsRoute,
-  ProfileRoute,
-  MainRoute,
   FavoritesRoute,
 } from './app/Routes'
+ */
 
 import configureStore from './app/_redux/configureStore'
 
 import block from './app/utils/classname'
 import './App.module.css'
+
+
+const AdminRoute = lazy(() =>
+  import(/* webpackChunkName: "AdminRoute" */ './app/Routes/AdminRoute'),
+)
+const FavoritesRoute = lazy(() =>
+  import(/* webpackChunkName: "FavoritesRoute" */ './app/Routes/FavoritesRoute'),
+)
+const MainRoute = lazy(() =>
+  import(/* webpackChunkName: "MainRoute" */ './app/Routes/MainRoute'),
+)
+const ContactsRoute = lazy(() =>
+  import(/* webpackChunkName: "ContactsRoute" */ './app/Routes/ContactsRoute'),
+)
+const CatalogRoute = lazy(() =>
+  import(/* webpackChunkName: "CatalogRoute" */ './app/Routes/CatalogRoute'),
+)
+const ProfileRoute = lazy(() =>
+  import(/* webpackChunkName: "ProfileRoute" */ './app/Routes/ProfileRoute'),
+)
 
 const b = block('app')
 
@@ -29,6 +48,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
+
           <div className={b()}>
             <header className={b('header')}>
               <Menu className={b('menu')}>
@@ -41,14 +61,17 @@ class App extends Component {
               </Menu>
             </header>
             <main className={b('main')}>
-              <Route exact path="/" component={MainRoute} />
-              <Route path="/admin" component={AdminRoute} />
-              <Route path="/catalog" component={CatalogRoute} />
-              <Route path="/contacts" component={ContactsRoute} />
-              <Route path="/profile" component={ProfileRoute} />
-              <Route path="/favorites" component={FavoritesRoute} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Route exact path="/" component={MainRoute} />
+                <Route path="/admin" component={AdminRoute} />
+                <Route path="/catalog" component={CatalogRoute} />
+                <Route path="/contacts" component={ContactsRoute} />
+                <Route path="/profile" component={ProfileRoute} />
+                <Route path="/favorites" component={FavoritesRoute} />
+              </Suspense>
             </main>
           </div>
+
         </Router>
       </Provider>
     )
