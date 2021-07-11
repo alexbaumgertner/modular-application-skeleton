@@ -2,6 +2,17 @@
   margin: 10px 30px !important;
 }
 
+.catalog-item__images {
+  width: 300px;
+  margin-top: 300px;
+}
+
 .catalog-item__image {
   margin: 0 20px 0 0;
+}
+
+.catalog-item__images .catalog-item__image {
+  width: 400px;
+  margin-top: 300px;
+  display: block;
 }
