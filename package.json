@@ -63,7 +63,7 @@
     "react-dom": "^16.6.3",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.0",
+    "react-scripts": "^3.0.1",
     "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.5.1",
@@ -71,6 +71,7 @@
     "semantic-ui-react": "^0.87.1"
   },
   "devDependencies": {
+    "babel-jest": "^24.8.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-jest": "^22.5.1",
